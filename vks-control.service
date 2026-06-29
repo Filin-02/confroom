@@ -1,0 +1,28 @@
+# Файл службы systemd для автозапуска на РЕД ОС 7.3 / Linux.
+# Установка:
+#   sudo cp /opt/vks-control/vks-control.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now vks-control
+# Статус:  systemctl status vks-control
+# Логи:    journalctl -u vks-control -f
+#
+# Если приложение лежит не в /opt/vks-control — поправьте WorkingDirectory ниже.
+
+[Unit]
+Description=VKS Control - управление микрофонами (DCP1000 + Tendzone)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/vks-control
+ExecStart=/usr/bin/node backend/src/server.js
+Restart=on-failure
+RestartSec=5
+# Папка для сохранения настроек (data/config.json). По умолчанию — рядом с приложением.
+# Environment=VKS_DATA_DIR=/var/lib/vks-control
+# Включить отладочный вывод команд:
+# Environment=DEBUG=1
+
+[Install]
+WantedBy=multi-user.target

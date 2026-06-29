@@ -1,0 +1,17 @@
+# Настройки конкретной инсталляции (у каждого свои, с реальными IP)
+data/
+data/config.json
+
+# Портативный Node.js (для офлайн-запуска, не для репозитория)
+node/
+
+# Зависимости и сборка
+node_modules/
+android-kiosk/app/build/
+android-kiosk/.gradle/
+android-kiosk/build/
+*.apk
+
+# Системное
+.DS_Store
+*.log
